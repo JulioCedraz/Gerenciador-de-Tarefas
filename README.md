@@ -1,21 +1,11 @@
-
 # Gerenciador de Tarefas    
 
-Trata-se de um gerenciador de tarefas, no qual o usuário pode adicionar tarefas, editar, marcar como concluída e excluir.
-Sua interface foi desenvolvida utilizando React.js e estilizada com Tailwind CSS, com o objetivo de ser responsiva e fácil de usar independente do dispositivo do usuário.
+Trata-se de um gerenciador de tarefas no qual o usuário pode adicionar tarefas, marcar como concluída e excluir.
 
+## Tecnologias
 
-## Deploy
-
-Para fazer o deploy desse projeto rode:
-
-```bash
-  npm run deploy
-```
-
+Sua interface foi desenvolvida utilizando React.JS e estilizada com Tailwind CSS, com o objetivo de ser responsiva e fácil de usar independente do dispositivo do usuário.
 
 ## Demonstração
 
-Em breve...
-
-
+./assets/demo.gif
