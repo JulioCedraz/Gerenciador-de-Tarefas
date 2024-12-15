@@ -18,12 +18,31 @@ function TaskPage() {
     JSON.parse(localStorage.getItem("tasks")) || []
   );
 
+   // Encontrar a tarefa atual
+   const currentTask = tasks.find(task => 
+    task.title === searchParams.get("title") && 
+    task.description === searchParams.get("description")
+  );
+
+ // Formatar data de conclusão
+ const formatCompletedDate = (isoString) => {
+  if (!isoString) return null;
+  const date = new Date(isoString);
+  return date.toLocaleString('pt-BR', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+};
+
   function onBackClick() {
     navigate(-1);
   }
 
   function handleSave(newTitle, newDescription) {
-    // Atualizar o título e descrição locais
+    // Atualizar o título e descrição locais após salvar
     setTitle(newTitle);
     setDescription(newDescription);
 
@@ -34,11 +53,10 @@ function TaskPage() {
             : task
     );
 
-    // Atualizar tasks no localStorage
+    // Atualizar as tarefas no localStorage
     setTasks(updatedTasks);
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
 
-    // Fechar o modal de edição
     setEditModalOpen(false);
   }
 
@@ -71,6 +89,12 @@ function TaskPage() {
           </h2>
           <p className="text-xl whitespace-normal break-words">
             {description}
+          </p>
+          <br />
+          <p className="text-sm text-center opacity-70 italic">
+            {currentTask?.isCompleted 
+              ? `Tarefa concluída em ${formatCompletedDate(currentTask.completedAt)}` 
+              : "Tarefa pendente"}
           </p>
         </div>
       </div>

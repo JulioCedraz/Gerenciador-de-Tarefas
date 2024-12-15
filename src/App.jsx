@@ -17,14 +17,16 @@ function App() {
   // Atualizando tarefas no localStorage:
   function onTaskClick(taskId) {
     const newTasks = tasks.map((task) => {
-      // Atualizar tarefa
+      // Marcar tarefa como concluída
       if (task.id === taskId) {
         return {
           ...task,
           isCompleted: !task.isCompleted,
-        };
+        // Adiciona data e hora do clique
+        completedAt: !task.isCompleted ? new Date().toISOString() : null,
+      };
       }
-      // Não atualizar tarefa
+      // Sem alteração
       return task;
     });
     setTasks(newTasks);
@@ -41,6 +43,7 @@ function App() {
       title,
       description,
       isCompleted: false,
+      completedAt: null,
     };
     setTasks([...tasks, newTask]);
   }
