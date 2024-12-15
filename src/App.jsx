@@ -44,6 +44,7 @@ function App() {
       description,
       isCompleted: false,
       completedAt: null,
+      createdAt: new Date().toISOString(),
     };
     setTasks([...tasks, newTask]);
   }

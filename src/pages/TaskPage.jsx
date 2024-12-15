@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ChevronLeftIcon } from "lucide-react";
 import Title from "../components/Title";
@@ -9,7 +9,9 @@ function TaskPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [title, setTitle] = useState(searchParams.get("title"));
-  const [description, setDescription] = useState(searchParams.get("description"));
+  const [description, setDescription] = useState(
+    searchParams.get("description")
+  );
 
   const [isEditModalOpen, setEditModalOpen] = useState(false);
 
@@ -18,39 +20,41 @@ function TaskPage() {
     JSON.parse(localStorage.getItem("tasks")) || []
   );
 
-   // Encontrar a tarefa atual
-   const currentTask = tasks.find(task => 
-    task.title === searchParams.get("title") && 
-    task.description === searchParams.get("description")
+  // Encontrar a tarefa atual
+  const currentTask = tasks.find(
+    (task) =>
+      task.title === searchParams.get("title") &&
+      task.description === searchParams.get("description")
   );
 
- // Formatar data de conclusão
- const formatCompletedDate = (isoString) => {
-  if (!isoString) return null;
-  const date = new Date(isoString);
-  return date.toLocaleString('pt-BR', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  });
-};
+  // Formatar data de conclusão
+  const formatCompletedDate = (isoString) => {
+    if (!isoString) return null;
+    const date = new Date(isoString);
+    return date.toLocaleString("pt-BR", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
 
   function onBackClick() {
     navigate(-1);
   }
 
+  // Atualizar o título e descrição locais após salvar
   function handleSave(newTitle, newDescription) {
-    // Atualizar o título e descrição locais após salvar
     setTitle(newTitle);
     setDescription(newDescription);
 
     // Encontrar a tarefa atual nos tasks do localStorage
- const updatedTasks = tasks.map(task =>
-        (task.title === searchParams.get("title") && task.description === searchParams.get("description"))
-            ? { ...task, title: newTitle, description: newDescription }
-            : task
+    const updatedTasks = tasks.map((task) =>
+      task.title === searchParams.get("title") &&
+      task.description === searchParams.get("description")
+        ? { ...task, title: newTitle, description: newDescription }
+        : task
     );
 
     // Atualizar as tarefas no localStorage
@@ -75,8 +79,8 @@ function TaskPage() {
         </div>
 
         <div className="flex justify-center">
-          <button 
-            onClick={() => setEditModalOpen(true)} 
+          <button
+            onClick={() => setEditModalOpen(true)}
             className="bg-slate-400 text-white px-4 py-2 rounded"
           >
             Editar Tarefa
@@ -87,24 +91,28 @@ function TaskPage() {
           <h2 className="text-2xl font-bold pb-4 text-center whitespace-normal break-words">
             {title}
           </h2>
-          <p className="text-xl whitespace-normal break-words">
-            {description}
-          </p>
+          <p className="text-xl whitespace-normal break-words">{description}</p>
+
           <br />
+
+          {/* Registrar a data e horário de criação e conclusão da tarefa */}
           <p className="text-sm text-center opacity-70 italic">
-            {currentTask?.isCompleted 
-              ? `Tarefa concluída em ${formatCompletedDate(currentTask.completedAt)}` 
-              : "Tarefa pendente"}
+            Tarefa criada em {formatCompletedDate(currentTask.createdAt)}
+            <br />
+            {/* Verificar se a tarefa está concluída */}
+            {currentTask?.isCompleted
+              ? `Concluída em ${formatCompletedDate(currentTask.completedAt)}`
+              : "Pendente"}
           </p>
         </div>
       </div>
 
-      <EditModal 
-        isOpen={isEditModalOpen} 
-        onClose={() => setEditModalOpen(false)} 
-        title={title} 
-        description={description} 
-        onSave={handleSave} 
+      <EditModal
+        isOpen={isEditModalOpen}
+        onClose={() => setEditModalOpen(false)}
+        title={title}
+        description={description}
+        onSave={handleSave}
       />
 
       <Footer />
