@@ -42,31 +42,37 @@ function Tasks({ tasks, onTaskClick, onDeleteTaskClick }) {
         title="Sua lista de tarefas"
         className="space-y-4 p-6 bg-slate-200 rounded-md"
       >
-        {tasks.map((task) => (
-          <li key={task.id} className="flex gap-2">
-            <button
-              title="Marque ou desmarque a tarefa como concluída"
-              onClick={() => onTaskClick(task.id)}
-              className={`bg-slate-400 w-full flex gap-2 text-left text-white p-2 rounded-md ${
-                task.isCompleted && "line-through"
-              }`}
-            >
-              {task.isCompleted ? <CheckSquare /> : <Square />}
-              {task.title}
-            </button>
-
-            <Button title="Ver detalhes" onClick={() => navigateToTask(task)}>
-              <ChevronRightIcon />
-            </Button>
-
-            <Button
-              title="Apagar tarefa"
-              onClick={() => openDeleteModal(task.id)}
-            >
-              <Trash2Icon />
-            </Button>
+        {tasks.length === 0 ? (
+          <li className="text-center text-gray-500">
+            Sua lista está vazia. Adicione uma tarefa!
           </li>
-        ))}
+        ) : (
+          tasks.map((task) => (
+            <li key={task.id} className="flex gap-2">
+              <button
+                title="Marque ou desmarque a tarefa como concluída"
+                onClick={() => onTaskClick(task.id)}
+                className={`bg-slate-400 w-full flex gap-2 text-left text-white p-2 rounded-md ${
+                  task.isCompleted && "line-through"
+                }`}
+              >
+                {task.isCompleted ? <CheckSquare /> : <Square />}
+                {task.title}
+              </button>
+
+              <Button title="Ver detalhes" onClick={() => navigateToTask(task)}>
+                <ChevronRightIcon />
+              </Button>
+
+              <Button
+                title="Apagar tarefa"
+                onClick={() => openDeleteModal(task.id)}
+              >
+                <Trash2Icon />
+              </Button>
+            </li>
+          ))
+        )}
       </ul>
 
       {isModalOpen && (

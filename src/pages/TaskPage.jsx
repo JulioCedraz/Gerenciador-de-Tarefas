@@ -95,10 +95,8 @@ function TaskPage() {
 
           <br />
 
-          {/* Registrar a data e horário de criação e conclusão da tarefa */}
+          {/* Registrar a data e horário de conclusão da tarefa */}
           <p className="text-sm text-center opacity-70 italic">
-            Tarefa criada em {formatCompletedDate(currentTask.createdAt)}
-            <br />
             {/* Verificar se a tarefa está concluída */}
             {currentTask?.isCompleted
               ? `Concluída em ${formatCompletedDate(currentTask.completedAt)}`

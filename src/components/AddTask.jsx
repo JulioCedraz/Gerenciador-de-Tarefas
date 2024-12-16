@@ -32,10 +32,10 @@ function AddTask({ onAddTaskSubmit }) {
         <button
           type="submit"
           disabled={!isFormComplete}
-          title="Clique para criar a tarefa"
-          className={`bg-slate-500 text-white p-2 rounded-md font-medium w-full
+          title="Preencha os campos e clique aqui para criar a tarefa"
+          className={`text-white p-2 rounded-md font-medium w-full
           ${
-            isFormComplete ? "cursor-pointer" : "bg-gray-400 cursor-not-allowed"
+            isFormComplete ? "bg-slate-600 cursor-pointer" : "bg-gray-400 cursor-not-allowed"
           }`}
           onClick={() => {
             onAddTaskSubmit(title, description);
