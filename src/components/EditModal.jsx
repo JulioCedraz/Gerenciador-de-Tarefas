@@ -6,7 +6,7 @@ function EditModal({ isOpen, onClose, title, description, onSave }) {
 
   if (!isOpen) return null;
 
-  const handleSave = () => {
+  const confirmSave = () => {
     onSave(editedTitle, editedDescription);
     onClose();
   };
@@ -30,7 +30,7 @@ function EditModal({ isOpen, onClose, title, description, onSave }) {
         />
         <div className="flex justify-end">
           <button onClick={onClose} className="mr-4 text-gray-500">Cancelar</button>
-          <button onClick={handleSave} className="bg-blue-500 text-white px-4 py-2 rounded">Salvar</button>
+          <button onClick={confirmSave} className="bg-blue-500 text-white px-4 py-2 rounded">Salvar</button>
         </div>
       </div>
     </div>

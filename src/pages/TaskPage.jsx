@@ -45,7 +45,7 @@ function TaskPage() {
   }
 
   // Atualizar o título e descrição locais após salvar
-  function handleSave(newTitle, newDescription) {
+  function confirmSave(newTitle, newDescription) {
     setTitle(newTitle);
     setDescription(newDescription);
 
@@ -110,7 +110,7 @@ function TaskPage() {
         onClose={() => setEditModalOpen(false)}
         title={title}
         description={description}
-        onSave={handleSave}
+        onSave={confirmSave}
       />
 
       <Footer />
