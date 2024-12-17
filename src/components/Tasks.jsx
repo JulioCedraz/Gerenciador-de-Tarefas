@@ -7,6 +7,7 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
+import DeleteModal from "./DeleteModal";
 
 function Tasks({ tasks, onTaskClick, onDeleteTaskClick }) {
   const navigate = useNavigate();
@@ -75,28 +76,11 @@ function Tasks({ tasks, onTaskClick, onDeleteTaskClick }) {
         )}
       </ul>
 
-      {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-md shadow-lg">
-            <h2 className="text-lg font-semibold">Confirmação de Exclusão</h2>
-            <p>Tem certeza que deseja excluir esta tarefa?</p>
-            <div className="flex justify-end mt-4">
-              <button
-                onClick={cancelDelete}
-                className="mr-4 bg-slate-300 p-2 rounded-md"
-              >
-                Cancelar
-              </button>
-              <button
-                onClick={confirmDelete}
-                className="bg-red-500 text-white p-2 rounded-md"
-              >
-                Excluir
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <DeleteModal
+        isOpen={isModalOpen}
+        onCancel={cancelDelete}
+        onConfirm={confirmDelete}
+      />
     </div>
   );
 }
