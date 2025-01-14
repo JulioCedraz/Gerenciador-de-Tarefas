@@ -1,37 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ChevronLeftIcon } from "lucide-react";
+import { useIntl } from "react-intl";
 import Title from "../components/Title";
 import Footer from "../components/Footer";
 import EditModal from "../components/EditModal";
+import LanguageToggle from "../components/LanguageToggle";
 
 function TaskPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [title, setTitle] = useState(searchParams.get("title"));
-  const [description, setDescription] = useState(
-    searchParams.get("description")
-  );
+  const intl = useIntl();
 
+  const [title, setTitle] = useState(searchParams.get("title") || "");
+  const [description, setDescription] = useState(searchParams.get("description") || "");
   const [isEditModalOpen, setEditModalOpen] = useState(false);
 
   // Carregar tarefas do localStorage
-  const [tasks, setTasks] = useState(
-    JSON.parse(localStorage.getItem("tasks")) || []
-  );
+  const [tasks, setTasks] = useState(() => {
+    const storedTasks = localStorage.getItem("tasks");
+    return storedTasks ? JSON.parse(storedTasks) : [];
+  });
 
   // Encontrar a tarefa atual
   const currentTask = tasks.find(
-    (task) =>
-      task.title === searchParams.get("title") &&
-      task.description === searchParams.get("description")
+    (task) => task.title === title && task.description === description
   );
 
   // Formatar data de conclusão
   const formatCompletedDate = (isoString) => {
     if (!isoString) return null;
     const date = new Date(isoString);
-    return date.toLocaleString("pt-BR", {
+    return date.toLocaleString(intl.locale, {
       day: "2-digit",
       month: "2-digit",
       year: "numeric",
@@ -49,15 +49,13 @@ function TaskPage() {
     setTitle(newTitle);
     setDescription(newDescription);
 
-    // Encontrar a tarefa atual nos tasks do localStorage
+    // Atualizar as tarefas no localStorage
     const updatedTasks = tasks.map((task) =>
-      task.title === searchParams.get("title") &&
-      task.description === searchParams.get("description")
+      task.title === title && task.description === description
         ? { ...task, title: newTitle, description: newDescription }
         : task
     );
 
-    // Atualizar as tarefas no localStorage
     setTasks(updatedTasks);
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
 
@@ -66,6 +64,7 @@ function TaskPage() {
 
   return (
     <div className="w-screen h-screen bg-slate-600 flex justify-center p-6">
+      <LanguageToggle />
       <div className="min-w-[340px] sm:min-w-[70%] mx-auto space-y-4">
         <div className="flex justify-center relative mb-6">
           <button
@@ -75,7 +74,7 @@ function TaskPage() {
             <ChevronLeftIcon />
           </button>
 
-          <Title>Detalhes da Tarefa</Title>
+          <Title>{intl.formatMessage({ id: "taskPage.title" })}</Title>
         </div>
 
         <div className="flex justify-center">
@@ -83,7 +82,7 @@ function TaskPage() {
             onClick={() => setEditModalOpen(true)}
             className="bg-slate-400 text-white px-4 py-2 rounded"
           >
-            Editar Tarefa
+            {intl.formatMessage({ id: "taskPage.editButton" })}
           </button>
         </div>
 
@@ -99,8 +98,8 @@ function TaskPage() {
           <p className="text-sm text-center opacity-70 italic">
             {/* Verificar se a tarefa está concluída */}
             {currentTask?.isCompleted
-              ? `Concluída em ${formatCompletedDate(currentTask.completedAt)}`
-              : "Pendente"}
+              ? `${intl.formatMessage({ id: "taskPage.completedAt" })} ${formatCompletedDate(currentTask.completedAt)}`
+              : `${intl.formatMessage({ id: "taskPage.pending" })}`}
           </p>
         </div>
       </div>

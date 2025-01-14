@@ -1,12 +1,15 @@
 import React from "react";
 import { FaGithub } from "react-icons/fa";
+import { useIntl } from "react-intl";
 
 function Footer() {
+  const intl = useIntl();
+  
   return (
     <div className="fixed bottom-0 w-full bg-slate-200 p-2 text-center">
       <footer>
         <p className="text-gray-700">
-          Desenvolvido por{" "}
+        {intl.formatMessage({ id: "footer.text" })}{" "}
           <a
             href="https://github.com/juliocedraz"
             target="_blank"

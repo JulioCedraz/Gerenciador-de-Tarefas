@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useIntl } from "react-intl";
 import Button from "./Button";
 import DeleteModal from "./DeleteModal";
 
@@ -13,6 +14,7 @@ function Tasks({ tasks, onTaskClick, onDeleteTaskClick }) {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState(null);
+  const intl = useIntl();
 
   function navigateToTask(task) {
     const query = new URLSearchParams();
@@ -40,18 +42,18 @@ function Tasks({ tasks, onTaskClick, onDeleteTaskClick }) {
   return (
     <div>
       <ul
-        title="Sua lista de tarefas"
+        title={intl.formatMessage({ id: "app.taskListTooltip" })}
         className="space-y-4 p-6 bg-slate-200 rounded-md"
       >
         {tasks.length === 0 ? (
           <li className="text-center text-gray-500">
-            Sua lista está vazia. Adicione uma tarefa!
+            {intl.formatMessage({ id: "app.emptyTaskList" })}
           </li>
         ) : (
           tasks.map((task) => (
             <li key={task.id} className="flex gap-2">
               <button
-                title="Marque ou desmarque a tarefa como concluída"
+                title={intl.formatMessage({ id: "app.markTaskTooltip" })}
                 onClick={() => onTaskClick(task.id)}
                 className={`bg-slate-400 w-full flex gap-2 text-left text-white p-2 rounded-md ${
                   task.isCompleted && "line-through"
@@ -61,12 +63,15 @@ function Tasks({ tasks, onTaskClick, onDeleteTaskClick }) {
                 {task.title}
               </button>
 
-              <Button title="Ver detalhes" onClick={() => navigateToTask(task)}>
+              <Button
+                title={intl.formatMessage({ id: "app.viewDetailsTooltip" })}
+                onClick={() => navigateToTask(task)}
+              >
                 <ChevronRightIcon />
               </Button>
 
               <Button
-                title="Apagar tarefa"
+                title={intl.formatMessage({ id: "app.deleteTaskTooltip" })}
                 onClick={() => openDeleteModal(task.id)}
               >
                 <Trash2Icon />
