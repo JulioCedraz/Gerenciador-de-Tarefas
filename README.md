@@ -19,4 +19,4 @@ Trata-se de um gerenciador de tarefas no qual o usuário pode adicionar tarefas,
 
 ## Demonstração
 
-[Clique aqui]("./src/assets/TaskManager.gif")
+[Clique aqui]("/src/assets/TaskManager.gif")
