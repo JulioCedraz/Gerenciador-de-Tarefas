@@ -5,12 +5,24 @@ function LanguageToggle() {
   const { locale, setLocale } = useLanguage();
   
   return (
-    <button
-      onClick={() => setLocale(locale === 'pt-BR' ? 'en' : 'pt-BR')}
-      className="absolute top-4 right-4 bg-slate-700 text-white px-4 py-2 rounded-md"
-    >
-      {locale === 'pt-BR' ? 'EN' : 'PT-BR'}
-    </button>
+    <div className="absolute flex top-0 right-0 sm:top-4 sm:right-4">
+      <button
+        onClick={() => setLocale('pt-BR')}
+        className={`bg-slate-700 text-white sm:rounded-l-md 
+          ${locale === 'pt-BR' ? 'font-bold' : 'opacity-50'} 
+          px-3 py-1 text-sm sm:px-4 sm:py-2 sm:text-base`}
+      >
+        PT-BR
+      </button>
+      <button
+        onClick={() => setLocale('en')}
+        className={`bg-slate-700 text-white sm:rounded-r-md 
+          ${locale === 'en' ? 'font-bold' : 'opacity-50'} 
+          px-3 py-1 text-sm sm:px-4 sm:py-2 sm:text-base`}
+      >
+        EN
+      </button>
+    </div>
   );
 }
 
