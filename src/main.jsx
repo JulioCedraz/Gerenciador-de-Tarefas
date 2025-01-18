@@ -5,7 +5,7 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import TaskPage from "./pages/TaskPage.jsx";
 import { IntlProvider } from "react-intl";
-import ptMessages from "./locales/pt-BR.json";
+import ptMessages from "./locales/pt-br.json";
 import enMessages from "./locales/en.json";
 import { LanguageProvider, useLanguage } from "./contexts/LanguageContext";
 
