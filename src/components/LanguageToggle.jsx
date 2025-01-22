@@ -8,7 +8,7 @@ function LanguageToggle() {
     <div className="absolute flex top-0 right-0 sm:top-4 sm:right-4">
       <button
         onClick={() => setLocale('pt-BR')}
-        className={`bg-slate-700 text-white sm:rounded-l-md 
+        className={`bg-slate-700 text-white rounded-bl-md sm:rounded-l-md 
           ${locale === 'pt-BR' ? 'font-bold' : 'opacity-50'} 
           px-3 py-1 text-sm sm:px-4 sm:py-2 sm:text-base`}
       >
