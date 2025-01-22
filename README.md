@@ -10,10 +10,11 @@ Trata-se de um gerenciador de tarefas no qual o usuário pode adicionar tarefas,
 
 - A aplicação foi desenvolvida com o objetivo de praticar os conceitos de CRUD (Create, Read, Update, Delete), manipulação de estado e de contexto, além de design responsivo visando dispositivos móveis.
 
-- O gerenciador está disponível em português (PT-BR) e inglês (EN), o usuário é livre para selecionar o idioma de sua preferência através do botão de alternância no canto superior direito de sua tela.
+- Foi utilizada a biblioteca react-intl para internacionalizar o gerenciador. Toda a aplicação está disponível em português (PT-BR) e inglês (EN). O usuário é livre para selecionar o idioma de sua preferência através do botão de alternância no canto superior direito de sua tela.
 
 ## Tecnologias
 
+- Vite
 - React.JS 
 - JavaScript
 - HTML
